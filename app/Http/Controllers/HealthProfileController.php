@@ -35,7 +35,23 @@ class HealthProfileController extends Controller
             'doctor_name' => ['nullable', 'string', 'max:120'],
             'water_goal_ml' => ['required', 'integer', 'min:500', 'max:5000'],
             'daily_steps_goal' => ['required', 'integer', 'min:1000', 'max:30000'],
+            'cover_photo' => ['nullable', 'image', 'max:4096'],
+            'avatar_photo' => ['nullable', 'image', 'max:2048'],
         ]);
+
+        $profile = $request->user()->healthProfile;
+
+        if ($request->hasFile('cover_photo')) {
+            $validated['cover_photo'] = $request->file('cover_photo')->store('covers', 'public');
+        } else {
+            unset($validated['cover_photo']);
+        }
+
+        if ($request->hasFile('avatar_photo')) {
+            $validated['avatar_photo'] = $request->file('avatar_photo')->store('avatars', 'public');
+        } else {
+            unset($validated['avatar_photo']);
+        }
 
         $request->user()->healthProfile()->updateOrCreate(
             ['user_id' => $request->user()->id],

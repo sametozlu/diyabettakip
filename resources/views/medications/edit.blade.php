@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="form-card">
-  <form method="POST" action="{{ route('medications.update', $medication) }}">
+  <form method="POST" action="{{ route('medications.update', $medication) }}" enctype="multipart/form-data">
     @csrf @method('PUT')
     <div class="form-group">
       <label for="name">İlaç adı</label>
@@ -32,6 +32,11 @@
     <div class="form-group">
       <label for="notes">Kullanım notu</label>
       <textarea name="notes" id="notes">{{ old('notes', $medication->notes) }}</textarea>
+    </div>
+    <div class="form-group">
+      <label for="photo">{{ __('İlaç fotoğrafı') }}</label>
+      @if($medication->photo_path)<img src="{{ asset('storage/'.$medication->photo_path) }}" alt="" style="height:80px;border-radius:8px;margin-bottom:0.5rem;display:block;">@endif
+      <input type="file" name="photo" id="photo" accept="image/*">
     </div>
     <div class="form-group">
       <label style="display:flex;align-items:center;gap:0.5rem;font-weight:600;cursor:pointer;">

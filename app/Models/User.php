@@ -86,4 +86,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PushSubscription::class);
     }
+
+    public function progressSnapshots(): HasMany
+    {
+        return $this->hasMany(ProgressSnapshot::class);
+    }
 }

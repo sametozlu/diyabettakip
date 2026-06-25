@@ -17,9 +17,10 @@
     <div class="grid-3">
         @foreach ($days as $meal)
         <a href="{{ route('meals.show', $meal) }}" style="text-decoration:none;color:inherit;">
-            <div class="med-card" style="height:100%;transition:box-shadow .15s,transform .15s;{{ $meal->plan_date->isToday() ? 'border-color:var(--primary);box-shadow:0 0 0 2px var(--primary-soft);' : '' }}"
-                 onmouseover="this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.boxShadow='var(--shadow-xs)'">
-                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.65rem;">
+            <div class="med-card meal-card-visual" style="height:100%;padding:0;overflow:hidden;{{ $meal->plan_date->isToday() ? 'border-color:var(--primary);box-shadow:0 0 0 2px var(--primary-soft);' : '' }}">
+                <img src="{{ $meal->display_image }}" alt="" class="meal-card-img" loading="lazy">
+                <div style="padding:0.85rem;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
                     <div>
                         <strong style="font-size:0.95rem;">{{ $meal->day_name }}</strong>
                         <div class="text-muted" style="font-size:0.78rem;margin-top:0.15rem;">{{ $meal->plan_date->format('d.m.Y') }}</div>
@@ -34,6 +35,7 @@
                     @if(count($meal->skip_items))
                         <span class="tag tag-skip">{{ count($meal->skip_items) }} kaçın</span>
                     @endif
+                </div>
                 </div>
             </div>
         </a>

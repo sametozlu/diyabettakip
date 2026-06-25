@@ -5,7 +5,16 @@
 @section('content')
 <div class="grid-2">
 <div class="form-card">
-<form method="POST" action="{{ route('health-profile.update') }}">@csrf @method('PUT')
+<form method="POST" action="{{ route('health-profile.update') }}" enctype="multipart/form-data">@csrf @method('PUT')
+@if($profile->cover_photo)
+<p><img src="{{ asset('storage/'.$profile->cover_photo) }}" alt="" style="width:100%;height:120px;object-fit:cover;border-radius:12px;margin-bottom:1rem;"></p>
+@endif
+<div class="grid-2" style="gap:1rem;margin-bottom:1rem;">
+<div class="form-group"><label>{{ __('Kapak fotoğrafı') }}</label><input type="file" name="cover_photo" accept="image/*"></div>
+<div class="form-group"><label>{{ __('Profil fotoğrafı') }}</label><input type="file" name="avatar_photo" accept="image/*">
+@if($profile->avatar_photo)<img src="{{ asset('storage/'.$profile->avatar_photo) }}" alt="" style="width:48px;height:48px;border-radius:50%;margin-top:0.5rem;object-fit:cover;">@endif
+</div>
+</div>
 <div class="grid-2" style="gap:1rem;">
 <div class="form-group"><label>Hedef min (mg/dL)</label><input type="number" name="target_min" value="{{ old('target_min', $profile->target_min) }}" required></div>
 <div class="form-group"><label>Hedef max (mg/dL)</label><input type="number" name="target_max" value="{{ old('target_max', $profile->target_max) }}" required></div>

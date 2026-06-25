@@ -67,6 +67,12 @@
 
             <div class="nav-section">{{ __('Araçlar') }}</div>
             <nav class="nav-links">
+                <a href="{{ route('progress.index') }}" class="{{ request()->routeIs('progress.*') ? 'active' : '' }}">
+                    <i data-lucide="trending-up"></i> {{ __('İlerleme') }}
+                </a>
+                <a href="{{ route('weekly.story') }}" target="_blank">
+                    <i data-lucide="share"></i> {{ __('Haftalık Kart') }}
+                </a>
                 <a href="{{ route('health-profile.edit') }}" class="{{ request()->routeIs('health-profile.*') ? 'active' : '' }}">
                     <i data-lucide="user-cog"></i> {{ __('Sağlık Profili') }}
                 </a>
@@ -102,7 +108,11 @@
 
             <div class="sidebar-footer">
                 <div class="user-chip">
-                    <div class="avatar">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</div>
+                    @if(auth()->user()->healthProfile?->avatar_photo)
+                        <img src="{{ asset('storage/'.auth()->user()->healthProfile->avatar_photo) }}" alt="" class="avatar avatar-img">
+                    @else
+                        <div class="avatar">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</div>
+                    @endif
                     <div>
                         <div class="name">{{ auth()->user()->name }}</div>
                         <div class="email">{{ auth()->user()->email }}</div>
@@ -118,7 +128,11 @@
         </aside>
 
         <div class="main-wrap">
-            <header class="page-header">
+            @php
+                $cover = auth()->user()->healthProfile?->cover_photo;
+                $heroBg = $cover ? asset('storage/'.$cover) : config('health_images.hero_dashboard');
+            @endphp
+            <header class="page-header page-header--photo" style="--hero-bg: url('{{ $heroBg }}')">
                 <div class="page-header-top">
                     <div>
                         <h2>@yield('hero_title', __('Sağlık Paneli'))</h2>

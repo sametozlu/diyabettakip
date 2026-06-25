@@ -36,6 +36,11 @@ Profesyonel diyabet ve sağlık yönetim platformu. Kan şekeri takibi, diyet pl
 - **Veri dışa aktarma** — JSON ve CSV
 
 ### Platform
+- **Landing page** — tanıtım sayfası, özellik kartları ve demo giriş
+- **Onboarding** — yeni kullanıcılar için 3 adımlı tanıtım slaytı
+- **Görsel zenginlik** — hero banner, yemek galerisi, diyet planı fotoğrafları, rozetler
+- **İlerleme takibi** — kilo/HbA1c öncesi-sonrası fotoğraflı kayıtlar
+- **Haftalık paylaşım kartı** — story formatında özet (`/weekly-story`)
 - **Web paneli** — modern dashboard, karanlık mod, TR/EN dil desteği
 - **Mobil PWA** — `/mobile` — Chart.js, offline cache, ana ekrana ekleme
 - **REST API** — Laravel Sanctum token auth, Flutter/React Native hazır
@@ -77,7 +82,9 @@ php artisan serve
 
 | Adres | Açıklama |
 |-------|----------|
-| http://localhost:8000 | Web panel |
+| http://localhost:8000 | Landing + web panel |
+| http://localhost:8000/login | Giriş (hero tasarım) |
+| http://localhost:8000/weekly-story | Haftalık paylaşım kartı (giriş gerekli) |
 | http://localhost:8000/mobile | Mobil PWA |
 | http://localhost:8000/api | REST API |
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable([
     'user_id', 'doctor_name', 'specialty', 'scheduled_at',
-    'location', 'notes', 'reminder_sent',
+    'location', 'image_url', 'notes', 'reminder_sent',
 ])]
 class Appointment extends Model
 {
@@ -35,5 +35,10 @@ class Appointment extends Model
         return $this->isUpcoming()
             && ! $this->reminder_sent
             && $this->scheduled_at->lte(now()->addDay());
+    }
+
+    public function getDisplayImageAttribute(): string
+    {
+        return $this->image_url ?: config('health_images.hospital');
     }
 }

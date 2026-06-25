@@ -47,7 +47,8 @@
     </div>
   </div>
   @foreach ($upcoming->take(3) as $appt)
-  <div class="timeline-item">
+  <div class="timeline-item appt-timeline">
+    <img src="{{ $appt->display_image }}" alt="" class="appt-thumb">
     <div class="timeline-dot" style="{{ $appt->needsReminder() ? 'background:var(--warning);box-shadow:0 0 0 4px var(--warning-bg);' : '' }}"></div>
     <div class="timeline-content" style="flex:1;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;">

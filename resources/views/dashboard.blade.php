@@ -101,8 +101,8 @@
     <div class="card-header"><div class="card-title"><i data-lucide="award"></i> {{ __('Rozetler') }}</div></div>
     <div class="grid-3">
         @foreach($achievements as $badge)
-        <div class="med-card" style="opacity:{{ $badge['earned'] ? 1 : 0.45 }};text-align:center;">
-            <div style="font-size:1.75rem;margin-bottom:0.35rem;">{{ $badge['earned'] ? '🏅' : '🔒' }}</div>
+        <div class="badge-card {{ $badge['earned'] ? 'earned' : 'locked' }}">
+            <div class="badge-icon">{{ $badge['earned'] ? \App\Helpers\HealthImages::badge($badge['id']) : '🔒' }}</div>
             <strong style="font-size:0.88rem;">{{ $badge['title'] }}</strong>
             <p class="text-muted" style="font-size:0.75rem;margin-top:0.25rem;">{{ $badge['description'] }}</p>
         </div>

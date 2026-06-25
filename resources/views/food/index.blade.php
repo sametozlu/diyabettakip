@@ -1,19 +1,39 @@
 @extends('layouts.health')
 @section('title', __('Yemek Kaydı'))
-@section('hero_title', __('Yemek Kaydı'))
-@section('hero_subtitle', 'Fotoğraf + karbonhidrat tahmini')
+@section('hero_title', __('Yemek Galerisi'))
+@section('hero_subtitle', 'Fotoğraf + karbonhidrat tahmini · Instagram tarzı görünüm')
 @section('content')
-<div class="page-toolbar"><span></span><a href="{{ route('food.create') }}" class="btn"><i data-lucide="plus"></i> Yemek Ekle</a></div>
-<div class="grid-2">
-@forelse($logs as $log)
-<div class="med-card">
-@if($log->photo_path)<img src="{{ asset('storage/'.$log->photo_path) }}" alt="" style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:0.75rem;">@endif
-<strong>{{ $log->name }}</strong>
-<p class="text-muted">{{ $mealTypes[$log->meal_type] ?? $log->meal_type }} · {{ $log->logged_at->format('d.m.Y H:i') }}</p>
-<p><strong>{{ $log->carbs_grams }}g</strong> KH @if($log->estimation_source==='estimated')<span class="badge badge-normal">tahmini</span>@endif</p>
-<form method="POST" action="{{ route('food.destroy', $log) }}" onsubmit="return confirm('?')">@csrf @method('DELETE')<button class="btn btn-danger btn-sm"><i data-lucide="trash-2"></i></button></form>
+<div class="page-toolbar">
+    <span class="text-muted">{{ $logs->total() }} {{ __('kayıt') }}</span>
+    <a href="{{ route('food.create') }}" class="btn"><i data-lucide="plus"></i> {{ __('Yemek Ekle') }}</a>
 </div>
-@empty<p class="text-muted">Henüz yemek kaydı yok.</p>@endforelse
+@if($logs->isEmpty())
+<div class="empty-state-card">
+    <img src="{{ config('health_images.empty_meals') }}" alt="" class="empty-state-img">
+    <p>{{ __('Henüz yemek kaydı yok. İlk fotoğrafınızı ekleyin!') }}</p>
+    <a href="{{ route('food.create') }}" class="btn btn-sm">{{ __('Yemek Ekle') }}</a>
+</div>
+@else
+<div class="photo-gallery photo-gallery--masonry">
+@foreach($logs as $log)
+<article class="gallery-item gallery-item--food">
+    @if($log->photo_path)
+        <img src="{{ asset('storage/'.$log->photo_path) }}" alt="{{ $log->name }}" loading="lazy">
+    @else
+        <div class="gallery-placeholder"><i data-lucide="utensils"></i></div>
+    @endif
+    <div class="gallery-overlay">
+        <strong>{{ $log->name }}</strong>
+        <span>{{ $mealTypes[$log->meal_type] ?? $log->meal_type }} · {{ $log->logged_at->format('d.m H:i') }}</span>
+        <span class="gallery-carbs">{{ $log->carbs_grams }}g KH @if($log->estimation_source==='estimated')<em>tahmini</em>@endif</span>
+        <form method="POST" action="{{ route('food.destroy', $log) }}" onsubmit="return confirm('{{ __('Silinsin mi?') }}')">
+            @csrf @method('DELETE')
+            <button class="btn btn-danger btn-sm"><i data-lucide="trash-2"></i></button>
+        </form>
+    </div>
+</article>
+@endforeach
 </div>
 {{ $logs->links() }}
+@endif
 @endsection

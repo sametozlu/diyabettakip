@@ -39,10 +39,16 @@ class MedicationController extends Controller
             'times.*' => ['string', 'max:10'],
             'notes' => ['nullable', 'string', 'max:500'],
             'is_active' => ['boolean'],
+            'photo' => ['nullable', 'image', 'max:2048'],
         ]);
 
         $validated['is_active'] = $request->boolean('is_active', true);
         $validated['times'] = array_values(array_filter($validated['times'] ?? []));
+
+        if ($request->hasFile('photo')) {
+            $validated['photo_path'] = $request->file('photo')->store('medications', 'public');
+        }
+        unset($validated['photo']);
 
         $request->user()->medications()->create($validated);
 
@@ -71,10 +77,16 @@ class MedicationController extends Controller
             'times.*' => ['string', 'max:10'],
             'notes' => ['nullable', 'string', 'max:500'],
             'is_active' => ['boolean'],
+            'photo' => ['nullable', 'image', 'max:2048'],
         ]);
 
         $validated['is_active'] = $request->boolean('is_active');
         $validated['times'] = array_values(array_filter($validated['times'] ?? []));
+
+        if ($request->hasFile('photo')) {
+            $validated['photo_path'] = $request->file('photo')->store('medications', 'public');
+        }
+        unset($validated['photo']);
 
         $medication->update($validated);
 

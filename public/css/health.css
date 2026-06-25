@@ -662,3 +662,80 @@ textarea { min-height: 96px; resize: vertical; }
 }
 .quick-add-btn:hover { background: var(--primary-soft); border-color: var(--primary); }
 
+/* Hero photo header */
+.page-header--photo {
+    background-image: linear-gradient(135deg, rgba(15,23,42,.82), rgba(13,148,136,.75)), var(--hero-bg);
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    border-bottom: none;
+}
+.page-header--photo h2, .page-header--photo p, .page-header--photo .page-meta { color: #fff; }
+.page-header--photo .page-meta { opacity: 0.9; }
+.page-header--photo .kpi-card { background: rgba(255,255,255,.95); color: var(--text); }
+.avatar-img { object-fit: cover; border-radius: 50%; width: 40px; height: 40px; }
+
+/* Photo gallery */
+.photo-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.photo-gallery--masonry { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+.gallery-item { border-radius: 14px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); }
+.gallery-item img { width: 100%; height: 200px; object-fit: cover; display: block; }
+.gallery-item--food { position: relative; }
+.gallery-item--food img { height: 220px; }
+.gallery-overlay { padding: 0.75rem; }
+.gallery-overlay strong { display: block; font-size: 0.9rem; }
+.gallery-overlay span { font-size: 0.78rem; color: var(--muted); }
+.gallery-carbs { display: block; margin: 0.35rem 0; font-weight: 700; color: var(--primary); }
+.gallery-placeholder { height: 160px; display: flex; align-items: center; justify-content: center; background: var(--border-light); color: var(--muted); }
+.gallery-caption { padding: 0.75rem; }
+
+/* Badges */
+.badge-card { text-align: center; padding: 1.25rem 0.75rem; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); }
+.badge-card.locked { opacity: 0.45; }
+.badge-card.earned { border-color: var(--primary); background: var(--primary-soft); }
+.badge-icon { font-size: 2rem; margin-bottom: 0.35rem; }
+
+/* Meal visuals */
+.meal-card-img { width: 100%; height: 140px; object-fit: cover; display: block; }
+.meal-hero-banner { position: relative; border-radius: 16px; overflow: hidden; height: 220px; }
+.meal-hero-banner img { width: 100%; height: 100%; object-fit: cover; }
+.meal-hero-overlay { position: absolute; inset: 0; background: linear-gradient(transparent 30%, rgba(15,23,42,.85)); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; color: #fff; }
+.meal-hero-overlay h3 { margin: 0; font-size: 1.5rem; }
+.meal-hero-overlay p { margin: 0.25rem 0 0; opacity: 0.9; }
+
+/* Empty states */
+.empty-state-card { text-align: center; padding: 3rem 2rem; background: var(--surface); border-radius: 16px; border: 1px dashed var(--border); }
+.empty-state-img { width: 200px; height: 140px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem; opacity: 0.85; }
+
+/* Appointments */
+.appt-timeline { position: relative; padding-left: 4rem; }
+.appt-thumb { position: absolute; left: 0; top: 0; width: 48px; height: 48px; border-radius: 10px; object-fit: cover; }
+
+/* Login split */
+.login-split-body { margin: 0; min-height: 100vh; }
+.login-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+.login-split-visual { background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: 3rem; color: #fff; }
+.login-split-copy h1 { font-size: 2rem; margin: 0 0 0.5rem; }
+.login-split-copy p { opacity: 0.9; line-height: 1.6; max-width: 360px; }
+.login-back { color: #fff; opacity: 0.85; font-size: 0.85rem; margin-top: 1.5rem; display: inline-block; }
+.login-split-form { display: flex; align-items: center; justify-content: center; padding: 2rem; background: var(--bg, #f8fafc); }
+.btn-block { width: 100%; justify-content: center; }
+
+/* Onboarding */
+.onboarding-body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg, #f8fafc); font-family: 'Plus Jakarta Sans', sans-serif; }
+.onboarding-wrap { max-width: 480px; width: 100%; padding: 2rem; text-align: center; }
+.onboarding-slide { display: none; }
+.onboarding-slide.active { display: block; }
+.onboarding-slide img { width: 100%; height: 200px; object-fit: cover; border-radius: 16px; margin-bottom: 1.5rem; }
+.onboarding-slide h2 { margin: 0 0 0.5rem; }
+.onboarding-slide p { color: #64748b; line-height: 1.6; }
+.onboarding-dots { display: flex; justify-content: center; gap: 0.5rem; margin: 1.5rem 0; }
+.onboarding-dots span { width: 8px; height: 8px; border-radius: 50%; background: #cbd5e1; }
+.onboarding-dots span.active { background: #0d9488; width: 24px; border-radius: 4px; }
+.onboarding-actions { display: flex; gap: 0.75rem; justify-content: center; }
+.hidden { display: none !important; }
+
+@media (max-width: 768px) {
+    .login-split { grid-template-columns: 1fr; }
+    .login-split-visual { min-height: 200px; padding: 1.5rem; }
+}

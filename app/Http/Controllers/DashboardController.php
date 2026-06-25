@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MealPlan;
 use App\Services\HealthAnalyticsService;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -12,9 +13,12 @@ class DashboardController extends Controller
 {
     public function __construct(private HealthAnalyticsService $analytics) {}
 
-    public function index(Request $request): View
+    public function index(Request $request): View|RedirectResponse
     {
         $user = $request->user();
+        if (! $user->healthProfile || ! $user->healthProfile->onboarding_done) {
+            return redirect()->route('onboarding');
+        }
         $profile = $user->healthProfile;
         $targetMin = $profile?->target_min ?? 70;
         $targetMax = $profile?->target_max ?? 140;

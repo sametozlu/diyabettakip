@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable([
     'user_id', 'plan_date', 'day_name', 'week_label',
-    'menu_items', 'eat_items', 'reduce_items', 'skip_items',
+    'menu_items', 'image_url', 'eat_items', 'reduce_items', 'skip_items',
 ])]
 class MealPlan extends Model
 {
+    protected $appends = ['display_image'];
+
     protected function casts(): array
     {
         return [
@@ -33,5 +35,10 @@ class MealPlan extends Model
         return $query->where(function (Builder $q) use ($userId) {
             $q->whereNull('user_id')->orWhere('user_id', $userId);
         });
+    }
+
+    public function getDisplayImageAttribute(): string
+    {
+        return $this->image_url ?: \App\Helpers\HealthImages::mealFor($this->menu_items ?? '');
     }
 }

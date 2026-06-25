@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'user_id', 'target_min', 'target_max', 'weight',
     'height', 'diabetes_type', 'doctor_name',
     'water_goal_ml', 'daily_steps_goal',
+    'cover_photo', 'avatar_photo', 'onboarding_done',
 ])]
 class HealthProfile extends Model
 {

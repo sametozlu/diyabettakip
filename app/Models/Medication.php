@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['user_id', 'name', 'dosage', 'frequency', 'times', 'notes', 'is_active'])]
+#[Fillable(['user_id', 'name', 'dosage', 'frequency', 'times', 'notes', 'is_active', 'photo_path'])]
 class Medication extends Model
 {
     public const FREQUENCIES = [

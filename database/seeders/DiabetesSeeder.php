@@ -4,12 +4,14 @@ namespace Database\Seeders;
 
 use App\Models\Appointment;
 use App\Models\BloodSugarReading;
+use App\Helpers\HealthImages;
 use App\Models\ExerciseLog;
 use App\Models\Hba1cReading;
 use App\Models\HealthProfile;
 use App\Models\InsulinLog;
 use App\Models\MealPlan;
 use App\Models\Medication;
+use App\Models\ProgressSnapshot;
 use App\Models\User;
 use App\Models\WaterLog;
 use Illuminate\Database\Seeder;
@@ -39,12 +41,14 @@ class DiabetesSeeder extends Seeder
                 'doctor_name' => 'Dr. Endokrinoloji',
                 'water_goal_ml' => 2500,
                 'daily_steps_goal' => 8000,
+                'onboarding_done' => true,
             ]
         );
 
         $user->update(['locale' => 'tr']);
 
         $this->seedMeals();
+        $this->seedProgress($user);
 
         if ($user->bloodSugarReadings()->count() === 0) {
             foreach ([
@@ -169,6 +173,7 @@ class DiabetesSeeder extends Seeder
                         'day_name' => $dayName,
                         'week_label' => $weekLabel,
                         'menu_items' => $menu,
+                        'image_url' => HealthImages::mealFor($menu),
                         'eat_items' => $eat,
                         'reduce_items' => $reduce,
                         'skip_items' => $skip,
@@ -176,5 +181,19 @@ class DiabetesSeeder extends Seeder
                 );
             }
         }
+    }
+
+    private function seedProgress(User $user): void
+    {
+        if ($user->progressSnapshots()->exists()) {
+            return;
+        }
+
+        $user->progressSnapshots()->createMany([
+            ['type' => 'weight', 'value' => 108, 'recorded_at' => now()->subMonths(3)],
+            ['type' => 'weight', 'value' => 105, 'recorded_at' => now()->subWeek()],
+            ['type' => 'hba1c', 'value' => 7.2, 'recorded_at' => now()->subMonths(2)],
+            ['type' => 'hba1c', 'value' => 6.8, 'recorded_at' => now()->subWeek()],
+        ]);
     }
 }

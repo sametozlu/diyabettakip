@@ -10,23 +10,34 @@ use App\Http\Controllers\FoodLogController;
 use App\Http\Controllers\Hba1cReadingController;
 use App\Http\Controllers\HealthProfileController;
 use App\Http\Controllers\InsulinLogController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\MealPlanController;
 use App\Http\Controllers\MedicationController;
+use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProgressController;
 use App\Http\Controllers\PublicShareController;
 use App\Http\Controllers\PushSubscriptionController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ShareLinkController;
 use App\Http\Controllers\WaterLogController;
+use App\Http\Controllers\WeeklyShareController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => redirect()->route('login'));
+Route::get('/', [LandingController::class, 'index'])->name('landing');
 Route::view('/mobile', 'mobile')->name('mobile');
 Route::get('/share/{token}', [PublicShareController::class, 'show'])->name('share.public');
 Route::get('/locale/{locale}', [LocaleController::class, 'switch'])->name('locale.switch');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/onboarding', [OnboardingController::class, 'index'])->name('onboarding');
+    Route::post('/onboarding/complete', [OnboardingController::class, 'complete'])->name('onboarding.complete');
+    Route::get('/weekly-story', [WeeklyShareController::class, 'story'])->name('weekly.story');
+    Route::get('/progress', [ProgressController::class, 'index'])->name('progress.index');
+    Route::post('/progress', [ProgressController::class, 'store'])->name('progress.store');
+    Route::delete('/progress/{progress}', [ProgressController::class, 'destroy'])->name('progress.destroy');
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/daily-summary', [DailySummaryController::class, 'index'])->name('daily-summary');
 

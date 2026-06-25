@@ -9,7 +9,15 @@
     <i data-lucide="arrow-left"></i> Planlara dön
 </a>
 
-<div class="grid-2">
+<div class="meal-hero-banner">
+    <img src="{{ $meal->display_image }}" alt="">
+    <div class="meal-hero-overlay">
+        <h3>{{ $meal->day_name }}</h3>
+        <p>{{ $meal->plan_date->format('d F Y') }}</p>
+    </div>
+</div>
+
+<div class="grid-2" style="margin-top:1.25rem;">
     <div class="card">
         <div class="card-title" style="margin-bottom:1rem;"><i data-lucide="book-open"></i> Günün Menüsü</div>
         <p style="font-size:0.95rem;line-height:1.75;color:var(--text-secondary);">{{ $meal->menu_items }}</p>
