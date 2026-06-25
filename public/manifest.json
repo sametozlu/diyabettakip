@@ -1,0 +1,13 @@
+{
+  "name": "Diyabet Takip",
+  "short_name": "Diyabet",
+  "description": "Profesyonel diyabet ve sağlık takip uygulaması",
+  "start_url": "/mobile",
+  "display": "standalone",
+  "background_color": "#042f2e",
+  "theme_color": "#0d9488",
+  "orientation": "portrait",
+  "icons": [
+    {"src": "/favicon.ico", "sizes": "64x64", "type": "image/x-icon"}
+  ]
+}
